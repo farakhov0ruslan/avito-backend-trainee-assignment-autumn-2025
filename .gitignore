@@ -62,6 +62,7 @@ ehthumbs.db
 Thumbs.db
 
 /claude
+.claude
 
 # Temporary files
 tmp/
