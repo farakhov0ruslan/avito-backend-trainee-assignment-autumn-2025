@@ -71,5 +71,3 @@ temp/
 *.swo
 *~
 
-# Air live reload
-tmp/
