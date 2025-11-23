@@ -210,10 +210,24 @@ func (s *PRServiceImpl) ReassignReviewer(ctx context.Context, req *request.Reass
 		return nil, fmt.Errorf("failed to get team: %w", err)
 	}
 
-	// Get active candidates excluding the old reviewer and the PR author
+	// Get active candidates excluding the old reviewer, the PR author, and other current reviewers
 	candidates := []models.User{}
 	for _, member := range team.GetActiveMembers() {
-		if member.ID != req.OldUserID && member.ID != pr.AuthorID {
+		// Skip if member is the old reviewer or the PR author
+		if member.ID == req.OldUserID || member.ID == pr.AuthorID {
+			continue
+		}
+
+		// Skip if member is already assigned as a reviewer (excluding the one being replaced)
+		isCurrentlyAssigned := false
+		for _, assignedReviewerID := range pr.AssignedReviewers {
+			if member.ID == assignedReviewerID {
+				isCurrentlyAssigned = true
+				break
+			}
+		}
+
+		if !isCurrentlyAssigned {
 			candidates = append(candidates, member)
 		}
 	}

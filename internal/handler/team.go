@@ -35,10 +35,6 @@ func (h *TeamHandler) CreateTeam(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, fmt.Errorf("team_name is required"))
 		return
 	}
-	if len(req.Members) == 0 {
-		respondWithError(w, fmt.Errorf("members array cannot be empty"))
-		return
-	}
 
 	logger.Info("Creating team: %s", req.TeamName)
 

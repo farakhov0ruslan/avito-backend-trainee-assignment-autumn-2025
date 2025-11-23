@@ -1,25 +1,44 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15-alpine
     container_name: pr_reviewer_postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-pr_reviewer_db}
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - "${DB_PORT}:5432"
+      - "${DB_PORT:-5454}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-pr_reviewer_db}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - pr_reviewer_network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pr_reviewer_api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Override DB_HOST for Docker environment
+      DB_HOST: postgres
+      DB_PORT: 5432
+      APP_ENV: docker
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
     networks:
       - pr_reviewer_network
 

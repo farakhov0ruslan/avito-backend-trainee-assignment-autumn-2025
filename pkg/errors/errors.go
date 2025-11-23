@@ -29,8 +29,10 @@ var (
 // MapErrorToHTTPStatus maps domain errors to HTTP status codes
 func MapErrorToHTTPStatus(err error) int {
 	switch {
-	case errors.Is(err, ErrTeamExists),
-		errors.Is(err, ErrUserAlreadyExists),
+	case errors.Is(err, ErrTeamExists):
+		return http.StatusBadRequest
+
+	case errors.Is(err, ErrUserAlreadyExists),
 		errors.Is(err, ErrPRExists),
 		errors.Is(err, ErrPRMerged),
 		errors.Is(err, ErrReviewerNotAssigned),

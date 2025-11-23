@@ -38,9 +38,6 @@ func (s *TeamServiceImpl) CreateTeam(ctx context.Context, req *request.CreateTea
 	if req.TeamName == "" {
 		return nil, fmt.Errorf("team name is required")
 	}
-	if len(req.Members) == 0 {
-		return nil, fmt.Errorf("team must have at least one member")
-	}
 
 	logger.Info("Creating team: %s with %d members", req.TeamName, len(req.Members))
 

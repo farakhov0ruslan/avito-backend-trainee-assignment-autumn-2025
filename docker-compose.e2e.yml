@@ -1,10 +1,7 @@
-version: '3.8'
-
 services:
-  postgres_e2e:
+  postgres-test:
     image: postgres:15-alpine
-    container_name: pr_reviewer_postgres_e2e
-    restart: unless-stopped
+    container_name: pr_reviewer_postgres_test
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres_test
@@ -12,8 +9,6 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5455:5432"
-    volumes:
-      - postgres_e2e_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d pr_reviewer_test_db"]
       interval: 5s
@@ -21,12 +16,10 @@ services:
       retries: 5
       start_period: 5s
     networks:
-      - pr_reviewer_e2e_network
-
-volumes:
-  postgres_e2e_data:
-    driver: local
+      - test_network
+    tmpfs:
+      - /var/lib/postgresql/data
 
 networks:
-  pr_reviewer_e2e_network:
+  test_network:
     driver: bridge

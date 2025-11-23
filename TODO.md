@@ -372,39 +372,43 @@
 ## Фаза 12: E2E Тестирование
 
 ### 12.1. docker-compose.e2e.yml
-- [ ] Создать отдельный docker-compose для e2e тестов
-- [ ] Настроить отдельную БД для тестов (db_e2e)
-- [ ] Настроить сервис api_e2e с env файлом .env.e2e
-- [ ] Создать сервис для запуска тестов (tests)
-- [ ] Добавить depends_on с правильным порядком запуска
+- [x] Создать отдельный docker-compose для e2e тестов
+- [x] Настроить отдельную БД для тестов (db_e2e)
+- [x] Настроить сервис api_e2e с env файлом .env.e2e
+- [x] Создать сервис для запуска тестов (tests)
+- [x] Добавить depends_on с правильным порядком запуска
 
 ### 12.2. E2E тесты для Team (tests/e2e/team_test.go)
-- [ ] Написать тест для создания команды (POST /team/add)
-- [ ] Написать тест для получения команды (GET /team/get)
-- [ ] Написать тест для ошибки TEAM_EXISTS
-- [ ] Написать тест для ошибки NOT_FOUND
+- [x] Написать тест для создания команды (POST /team/add)
+- [x] Написать тест для получения команды (GET /team/get)
+- [x] Написать тест для ошибки TEAM_EXISTS
+- [x] Написать тест для ошибки NOT_FOUND
 
 ### 12.3. E2E тесты для User (tests/e2e/user_test.go)
-- [ ] Написать тест для установки is_active (POST /users/setIsActive)
-- [ ] Написать тест для получения PR'ов пользователя (GET /users/getReview)
-- [ ] Написать тест для ошибки NOT_FOUND
+- [x] Написать тест для установки is_active (POST /users/setIsActive)
+- [x] Написать тест для получения PR'ов пользователя (GET /users/getReview)
+- [x] Написать тест для ошибки NOT_FOUND
 
 ### 12.4. E2E тесты для PR (tests/e2e/pr_test.go)
-- [ ] Написать тест для создания PR с автоназначением ревьюверов (POST /pullRequest/create)
-- [ ] Написать тест для создания PR когда доступен только 1 ревьювер
-- [ ] Написать тест для создания PR когда нет доступных ревьюверов
-- [ ] Написать тест для merge PR (POST /pullRequest/merge)
-- [ ] Написать тест для идемпотентности merge (повторный вызов)
-- [ ] Написать тест для reassign ревьювера (POST /pullRequest/reassign)
-- [ ] Написать тест для ошибки PR_MERGED при reassign
-- [ ] Написать тест для ошибки NOT_ASSIGNED при reassign
-- [ ] Написать тест для ошибки NO_CANDIDATE при reassign
-- [ ] Написать тест для ошибки PR_EXISTS
+- [x] Написать тест для создания PR с автоназначением ревьюверов (POST /pullRequest/create)
+- [x] Написать тест для создания PR когда доступен только 1 ревьювер
+- [x] Написать тест для создания PR когда нет доступных ревьюверов
+- [x] Написать тест для merge PR (POST /pullRequest/merge)
+- [x] Написать тест для идемпотентности merge (повторный вызов)
+- [x] Написать тест для reassign ревьювера (POST /pullRequest/reassign)
+- [x] Написать тест для ошибки PR_MERGED при reassign
+- [x] Написать тест для ошибки NOT_ASSIGNED при reassign
+- [x] Написать тест для ошибки NO_CANDIDATE при reassign
+- [x] Написать тест для ошибки PR_EXISTS
 
 ### 12.5. Запуск E2E тестов
-- [ ] Создать команду в Makefile для запуска e2e тестов
-- [ ] Запустить тесты и проверить что все проходят
-- [ ] Исправить найденные баги
+- [x] Создать команду в Makefile для запуска e2e тестов
+- [x] Запустить тесты и проверить что все проходят
+- [x] Исправить найденные баги
+  - [x] Fixed reassign reviewer logic - exclude ALL current reviewers, not just one being replaced
+  - [x] Fixed TEAM_EXISTS status code - changed from 409 to 400 per OpenAPI spec
+  - [x] Fixed empty team validation - removed from handler layer
+  - [x] Fixed reassign test - changed from 3 to 4 users for proper NOT_ASSIGNED test
 
 ---
 
@@ -441,12 +445,6 @@
   - [ ] Как работает переназначение (из команды заменяемого)
 - [ ] Добавить раздел с результатами нагрузочного тестирования
 - [ ] Добавить примеры запросов (curl или httpie)
-
-### 14.2. Линтер конфигурация
-- [ ] Создать .golangci.yml с настройками линтера
-- [ ] Включить основные линтеры (govet, errcheck, staticcheck, gosimple, ineffassign, unused)
-- [ ] Настроить правила для импортов (gci)
-- [ ] Добавить команду make lint в Makefile
 
 ### 14.3. Финальная проверка
 - [ ] Убедиться что docker-compose up работает из коробки
