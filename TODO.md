@@ -12,129 +12,129 @@
 ## Фаза 0: Подготовка инфраструктуры
 
 ### 0.1. Инициализация зависимостей
-- [ ] Обновить go.mod с основными зависимостями (gorilla/mux, lib/pq, godotenv)
-- [ ] Добавить зависимость для работы с PostgreSQL (database/sql, lib/pq)
-- [ ] Добавить зависимость для конфигурации (godotenv или viper)
-- [ ] Установить goose для миграций (`go install github.com/pressly/goose/v3/cmd/goose@latest`)
+- [x] Обновить go.mod с основными зависимостями (gorilla/mux, pgx/v5, godotenv)
+- [x] Добавить зависимость для работы с PostgreSQL (pgx/v5, pgxpool)
+- [x] Добавить зависимость для конфигурации (godotenv)
+- [x] Установить goose для миграций (`go install github.com/pressly/goose/v3/cmd/goose@latest`)
 
 ### 0.2. Конфигурация окружения
-- [ ] Создать .env.example с примерами переменных (DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, SERVER_PORT)
-- [ ] Создать .env для локальной разработки (не коммитить)
+- [x] Создать .env.example с примерами переменных (DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, SERVER_PORT)
+- [x] Создать .env для локальной разработки (не коммитить)
 
 ### 0.3. Makefile
-- [ ] Добавить команду `make install-goose` для установки goose
-- [ ] Добавить команду `make migrate-up` для применения миграций
-- [ ] Добавить команду `make migrate-down` для отката миграций
-- [ ] Добавить команду `make migrate-create NAME=<name>` для создания новой миграции
-- [ ] Добавить команду `make build` для сборки проекта
-- [ ] Добавить команду `make run` для запуска приложения
-- [ ] Добавить команду `make test` для запуска тестов
-- [ ] Добавить команду `make lint` для проверки кода линтером
-- [ ] Добавить команду `make docker-up` для запуска docker-compose
-- [ ] Добавить команду `make docker-down` для остановки docker-compose
+- [x] Добавить команду `make install-goose` для установки goose
+- [x] Добавить команду `make migrate-up` для применения миграций
+- [x] Добавить команду `make migrate-down` для отката миграций
+- [x] Добавить команду `make migrate-create NAME=<name>` для создания новой миграции
+- [x] Добавить команду `make build` для сборки проекта
+- [x] Добавить команду `make run` для запуска приложения
+- [x] Добавить команду `make test` для запуска тестов
+- [x] Добавить команду `make lint` для проверки кода линтером
+- [x] Добавить команду `make docker-up` для запуска docker-compose
+- [x] Добавить команду `make docker-down` для остановки docker-compose
 
 ---
 
 ## Фаза 1: Domain Models
 
+**Важно:** Domain Models - это чистые структуры данных БЕЗ валидации!
+- **Handler**: базовая валидация (парсинг JSON, типы данных)
+- **Service**: бизнес-валидация (бизнес-правила)
+- **Models**: только структуры данных + вспомогательные методы
+
 ### 1.1. User Domain Model (internal/domain/models/user.go)
-- [ ] Создать структуру User с полями: ID, Username, TeamName, IsActive
-- [ ] Добавить валидацию полей (required fields)
-- [ ] Добавить метод String() для удобного логирования
+- [x] Создать структуру User с полями: ID, Username, TeamName, IsActive
+- [x] Добавить метод String() для удобного логирования
+- [x] Добавить JSON и DB теги
 
 ### 1.2. Team Domain Model (internal/domain/models/team.go)
-- [ ] Создать структуру Team с полями: Name, Members ([]User)
-- [ ] Добавить метод GetActiveMembers() []User
-- [ ] Добавить метод GetActiveMembersExcept(userID string) []User
-- [ ] Добавить валидацию
+- [x] Создать структуру Team с полями: Name, Members ([]User)
+- [x] Добавить метод GetActiveMembers() []User
+- [x] Добавить метод GetActiveMembersExcept(userID string) []User
+- [x] Добавить метод String() для логирования
 
 ### 1.3. PullRequest Domain Model (internal/domain/models/pr.go)
-- [ ] Создать enum для статуса PR (OPEN, MERGED)
-- [ ] Создать структуру PullRequest с полями: ID, Name, AuthorID, Status, AssignedReviewers, CreatedAt, MergedAt
-- [ ] Добавить метод IsMerged() bool
-- [ ] Добавить метод IsReviewerAssigned(userID string) bool
-- [ ] Добавить метод CanReassign() error (проверка что PR не MERGED)
+- [x] Создать enum для статуса PR (OPEN, MERGED)
+- [x] Создать структуру PullRequest с полями: ID, Name, AuthorID, Status, AssignedReviewers, CreatedAt, MergedAt
+- [x] Добавить метод IsMerged() bool
+- [x] Добавить метод IsReviewerAssigned(userID string) bool
+- [x] Добавить метод String() для логирования
 
 ---
 
 ## Фаза 2: DTO (Data Transfer Objects)
 
 ### 2.1. Request DTOs
-- [ ] internal/dto/request/team.go - CreateTeamRequest с валидацией
-- [ ] internal/dto/request/team.go - GetTeamRequest с валидацией
-- [ ] internal/dto/request/user.go - SetUserActiveRequest с валидацией
-- [ ] internal/dto/request/user.go - GetUserReviewsRequest с валидацией
-- [ ] internal/dto/request/pr.go - CreatePRRequest с валидацией
-- [ ] internal/dto/request/pr.go - MergePRRequest с валидацией
-- [ ] internal/dto/request/pr.go - ReassignReviewerRequest с валидацией
+- [x] internal/dto/request/team.go - CreateTeamRequest, GetTeamRequest
+- [x] internal/dto/request/user.go - SetUserActiveRequest, GetUserReviewsRequest
+- [x] internal/dto/request/pr.go - CreatePRRequest, MergePRRequest, ReassignReviewerRequest
 
 ### 2.2. Response DTOs
-- [ ] internal/dto/response/team.go - TeamResponse (соответствует OpenAPI)
-- [ ] internal/dto/response/user.go - UserResponse (соответствует OpenAPI)
-- [ ] internal/dto/response/pr.go - PullRequestResponse (соответствует OpenAPI)
-- [ ] internal/dto/response/pr.go - PullRequestShortResponse (соответствует OpenAPI)
-- [ ] internal/dto/response/pr.go - ReassignResponse с полями pr и replaced_by
-- [ ] internal/dto/response/error.go - ErrorResponse с code и message (соответствует OpenAPI)
-- [ ] internal/dto/response/error.go - Константы для error codes (TEAM_EXISTS, PR_EXISTS, PR_MERGED, NOT_ASSIGNED, NO_CANDIDATE, NOT_FOUND)
+- [x] internal/dto/response/team.go - TeamResponse, CreateTeamResponse
+- [x] internal/dto/response/user.go - UserResponse, SetUserActiveResponse, GetUserReviewsResponse
+- [x] internal/dto/response/pr.go - PullRequestResponse, PullRequestShortResponse
+- [x] internal/dto/response/pr.go - CreatePRResponse, MergePRResponse, ReassignReviewerResponse
+- [x] internal/dto/response/error.go - ErrorResponse с code и message
+- [x] internal/dto/response/error.go - Константы для error codes (TEAM_EXISTS, PR_EXISTS, PR_MERGED, NOT_ASSIGNED, NO_CANDIDATE, NOT_FOUND)
 
 ---
 
 ## Фаза 3: Утилиты и конфигурация
 
 ### 3.1. Custom Errors (pkg/errors/errors.go)
-- [ ] Создать кастомные ошибки: ErrTeamExists, ErrTeamNotFound
-- [ ] Создать кастомные ошибки: ErrUserNotFound, ErrUserAlreadyExists
-- [ ] Создать кастомные ошибки: ErrPRExists, ErrPRNotFound, ErrPRMerged
-- [ ] Создать кастомные ошибки: ErrReviewerNotAssigned, ErrNoCandidates
-- [ ] Добавить функцию для маппинга ошибок в HTTP коды
+- [x] Создать кастомные ошибки: ErrTeamExists, ErrTeamNotFound
+- [x] Создать кастомные ошибки: ErrUserNotFound, ErrUserAlreadyExists
+- [x] Создать кастомные ошибки: ErrPRExists, ErrPRNotFound, ErrPRMerged
+- [x] Создать кастомные ошибки: ErrReviewerNotAssigned, ErrNoCandidates
+- [x] Добавить функции MapErrorToHTTPStatus и MapErrorToErrorCode
 
 ### 3.2. Logger (pkg/logger/logger.go)
-- [ ] Настроить структурированный логгер (можно использовать стандартный log или zerolog)
-- [ ] Добавить уровни логирования (DEBUG, INFO, WARN, ERROR)
-- [ ] Добавить методы Info, Error, Debug, Warn
+- [x] Настроить структурированный логгер (стандартный log)
+- [x] Добавить уровни логирования (DEBUG, INFO, WARN, ERROR)
+- [x] Добавить методы Info, Error, Debug, Warn, Fatal
 
 ### 3.3. Database Connection (pkg/database/postgres.go)
-- [ ] Создать функцию NewPostgresDB для подключения к PostgreSQL
-- [ ] Добавить пинг базы данных для проверки подключения
-- [ ] Добавить настройку connection pool (max connections, idle connections)
-- [ ] Добавить graceful shutdown для БД
+- [x] Создать функцию NewPostgresDB для подключения через pgxpool
+- [x] Добавить пинг базы данных для проверки подключения
+- [x] Добавить настройку connection pool (max/min conns, lifetimes)
+- [x] Добавить функцию Close для graceful shutdown
 
 ### 3.4. Config (internal/config/config.go)
-- [ ] Создать структуру Config с полями для БД (Host, Port, User, Password, DBName)
-- [ ] Добавить поля для сервера (ServerPort)
-- [ ] Создать функцию LoadConfig для загрузки из переменных окружения
-- [ ] Добавить валидацию обязательных параметров
+- [x] Создать структуру Config с полями для БД, сервера, приложения
+- [x] Создать функцию Load для загрузки из переменных окружения
+- [x] Добавить валидацию обязательных параметров (Validate)
+- [x] Добавить поддержку .env файла через godotenv
 
 ---
 
 ## Фаза 4: Миграции базы данных
 
 ### 4.1. Миграция: Init Schema (migrations/00001_init_schema.sql)
-- [ ] Создать up-миграцию с созданием расширений (если нужны, например uuid-ossp)
-- [ ] Создать down-миграцию для отката
+- [x] Создать up-миграцию (базовая, расширения не нужны)
+- [x] Создать down-миграцию для отката
 
 ### 4.2. Миграция: Teams Table (migrations/00002_create_teams.sql)
-- [ ] Создать up-миграцию с таблицей teams (name PRIMARY KEY)
-- [ ] Добавить индексы если необходимо
-- [ ] Создать down-миграцию (DROP TABLE teams)
+- [x] Создать up-миграцию с таблицей teams (name PRIMARY KEY)
+- [x] Добавить индексы (created_at)
+- [x] Создать down-миграцию (DROP TABLE teams CASCADE)
 
 ### 4.3. Миграция: Users Table (migrations/00003_create_users.sql)
-- [ ] Создать up-миграцию с таблицей users (id PRIMARY KEY, username, team_name, is_active)
-- [ ] Добавить FOREIGN KEY на teams.name
-- [ ] Добавить индекс на team_name
-- [ ] Создать down-миграцию (DROP TABLE users)
+- [x] Создать up-миграцию с таблицей users (id PRIMARY KEY, username, team_name, is_active)
+- [x] Добавить FOREIGN KEY на teams.name (ON DELETE CASCADE)
+- [x] Добавить индексы (team_name, is_active, composite)
+- [x] Создать down-миграцию (DROP TABLE users CASCADE)
 
 ### 4.4. Миграция: Pull Requests Table (migrations/00004_create_pull_requests.sql)
-- [ ] Создать up-миграцию с таблицей pull_requests (id PRIMARY KEY, name, author_id, status, created_at, merged_at)
-- [ ] Добавить FOREIGN KEY на users.id для author_id
-- [ ] Добавить CHECK constraint для status (OPEN или MERGED)
-- [ ] Создать down-миграцию (DROP TABLE pull_requests)
+- [x] Создать up-миграцию с таблицей pull_requests (id PRIMARY KEY, name, author_id, status, created_at, merged_at)
+- [x] Добавить FOREIGN KEY на users.id для author_id (ON DELETE CASCADE)
+- [x] Добавить CHECK constraint для status (OPEN или MERGED)
+- [x] Создать down-миграцию (DROP TABLE pull_requests CASCADE)
 
 ### 4.5. Миграция: PR Reviewers Junction Table (migrations/00005_create_pr_reviewers.sql)
-- [ ] Создать up-миграцию с таблицей pr_reviewers (pr_id, reviewer_id, assigned_at)
-- [ ] Добавить FOREIGN KEY на pull_requests.id и users.id
-- [ ] Добавить UNIQUE constraint на (pr_id, reviewer_id)
-- [ ] Создать down-миграцию (DROP TABLE pr_reviewers)
+- [x] Создать up-миграцию с таблицей pr_reviewers (pr_id, reviewer_id, assigned_at)
+- [x] Добавить FOREIGN KEY на pull_requests.id и users.id (ON DELETE CASCADE)
+- [x] Добавить PRIMARY KEY (pr_id, reviewer_id) - обеспечивает уникальность
+- [x] Создать down-миграцию (DROP TABLE pr_reviewers CASCADE)
 
 ---
 
