@@ -157,180 +157,180 @@
 - [x] Добавить обработку ошибок (unique violation) и логирование
 
 ### 5.4. User Repository (internal/repository/postgres/user.go)
-- [ ] Реализовать метод Create для создания пользователя
-- [ ] Реализовать метод Update для обновления пользователя (upsert логика)
-- [ ] Реализовать метод GetByID для получения пользователя по ID
-- [ ] Реализовать метод GetByTeamName для получения всех пользователей команды
-- [ ] Реализовать метод SetActive для изменения флага is_active
-- [ ] Добавить обработку ошибок и логирование
+- [x] Реализовать метод Create для создания пользователя
+- [x] Реализовать метод Update для обновления пользователя (upsert логика)
+- [x] Реализовать метод GetByID для получения пользователя по ID
+- [x] Реализовать метод GetByTeamName для получения всех пользователей команды
+- [x] Реализовать метод SetActive для изменения флага is_active
+- [x] Добавить обработку ошибок и логирование
 
 ### 5.5. PR Repository (internal/repository/postgres/pr.go)
-- [ ] Реализовать метод Create для создания PR
-- [ ] Реализовать метод GetByID для получения PR по ID (с ревьюверами)
-- [ ] Реализовать метод Update для обновления PR
-- [ ] Реализовать метод Merge для изменения статуса на MERGED (идемпотентно)
-- [ ] Реализовать метод GetReviewersByPRID для получения списка ревьюверов
-- [ ] Реализовать метод AddReviewer для добавления ревьювера
-- [ ] Реализовать метод RemoveReviewer для удаления ревьювера
-- [ ] Реализовать метод GetPRsByReviewerID для получения PR'ов где пользователь ревьювер
-- [ ] Добавить обработку ошибок и логирование
+- [x] Реализовать метод Create для создания PR
+- [x] Реализовать метод GetByID для получения PR по ID (с ревьюверами)
+- [x] Реализовать метод Update для обновления PR
+- [x] Реализовать метод Merge для изменения статуса на MERGED (идемпотентно)
+- [x] Реализовать метод GetReviewersByPRID для получения списка ревьюверов
+- [x] Реализовать метод AddReviewer для добавления ревьювера
+- [x] Реализовать метод RemoveReviewer для удаления ревьювера
+- [x] Реализовать метод GetPRsByReviewerID для получения PR'ов где пользователь ревьювер
+- [x] Добавить обработку ошибок и логирование
 
 ---
 
 ## Фаза 6: Service Layer (Бизнес-логика)
 
 ### 6.1. Service Interfaces (internal/service/interfaces.go)
-- [ ] Создать интерфейс TeamService с методами CreateTeam, GetTeam
-- [ ] Создать интерфейс UserService с методами SetUserActive, GetUserReviews
-- [ ] Создать интерфейс PRService с методами CreatePR, MergePR, ReassignReviewer
+- [x] Создать интерфейс TeamService с методами CreateTeam, GetTeam
+- [x] Создать интерфейс UserService с методами SetUserActive, GetUserReviews
+- [x] Создать интерфейс PRService с методами CreatePR, MergePR, ReassignReviewer
 
 ### 6.2. Team Service (internal/service/team.go)
-- [ ] Реализовать метод CreateTeam (проверка на существование + создание команды и пользователей)
-- [ ] Добавить транзакцию для атомарного создания команды и пользователей
-- [ ] Реализовать метод GetTeam (получение команды с участниками)
-- [ ] Добавить обработку ошибок и валидацию
+- [x] Реализовать метод CreateTeam (проверка на существование + создание команды и пользователей)
+- [x] Добавить транзакцию для атомарного создания команды и пользователей
+- [x] Реализовать метод GetTeam (получение команды с участниками)
+- [x] Добавить обработку ошибок и валидацию
 
 ### 6.3. User Service (internal/service/user.go)
-- [ ] Реализовать метод SetUserActive (изменение флага активности)
-- [ ] Реализовать метод GetUserReviews (получение PR'ов где пользователь ревьювер)
-- [ ] Добавить обработку ошибок и валидацию
+- [x] Реализовать метод SetUserActive (изменение флага активности)
+- [x] Реализовать метод GetUserReviews (получение PR'ов где пользователь ревьювер)
+- [x] Добавить обработку ошибок и валидацию
 
 ### 6.4. PR Service - Часть 1: Create (internal/service/pr.go)
-- [ ] Реализовать метод CreatePR
-- [ ] Добавить проверку существования автора
-- [ ] Добавить проверку существования PR (должен быть уникальным)
-- [ ] Получить команду автора
-- [ ] Реализовать логику выбора до 2 активных ревьюверов (исключая автора)
-- [ ] Использовать случайный выбор ревьюверов
-- [ ] Добавить транзакцию для создания PR и назначения ревьюверов
-- [ ] Обработать случай когда доступных ревьюверов меньше 2
+- [x] Реализовать метод CreatePR
+- [x] Добавить проверку существования автора
+- [x] Добавить проверку существования PR (должен быть уникальным)
+- [x] Получить команду автора
+- [x] Реализовать логику выбора до 2 активных ревьюверов (исключая автора)
+- [x] Использовать случайный выбор ревьюверов
+- [x] Добавить транзакцию для создания PR и назначения ревьюверов
+- [x] Обработать случай когда доступных ревьюверов меньше 2
 
 ### 6.5. PR Service - Часть 2: Merge (internal/service/pr.go)
-- [ ] Реализовать метод MergePR
-- [ ] Проверить существование PR
-  - [ ] Проверить что PR еще не MERGED (если уже MERGED - вернуть текущее состояние, идемпотентность)
-- [ ] Изменить статус на MERGED и установить merged_at
-- [ ] Добавить обработку ошибок
+- [x] Реализовать метод MergePR
+- [x] Проверить существование PR
+  - [x] Проверить что PR еще не MERGED (если уже MERGED - вернуть текущее состояние, идемпотентность)
+- [x] Изменить статус на MERGED и установить merged_at
+- [x] Добавить обработку ошибок
 
 ### 6.6. PR Service - Часть 3: Reassign (internal/service/pr.go)
-- [ ] Реализовать метод ReassignReviewer
-- [ ] Проверить существование PR
-- [ ] Проверить что PR не MERGED (если MERGED - вернуть ошибку PR_MERGED)
-- [ ] Проверить что old_user_id назначен ревьювером (если нет - ошибка NOT_ASSIGNED)
-- [ ] Получить команду заменяемого пользователя
-- [ ] Получить список активных кандидатов из команды (исключая old_user_id и автора PR)
-- [ ] Выбрать случайного кандидата
-- [ ] Если кандидатов нет - вернуть ошибку NO_CANDIDATE
-- [ ] Использовать транзакцию для удаления старого и добавления нового ревьювера
-- [ ] Добавить обработку ошибок
+- [x] Реализовать метод ReassignReviewer
+- [x] Проверить существование PR
+- [x] Проверить что PR не MERGED (если MERGED - вернуть ошибку PR_MERGED)
+- [x] Проверить что old_user_id назначен ревьювером (если нет - ошибка NOT_ASSIGNED)
+- [x] Получить команду заменяемого пользователя
+- [x] Получить список активных кандидатов из команды (исключая old_user_id и автора PR)
+- [x] Выбрать случайного кандидата
+- [x] Если кандидатов нет - вернуть ошибку NO_CANDIDATE
+- [x] Использовать транзакцию для удаления старого и добавления нового ревьювера
+- [x] Добавить обработку ошибок
 
 ---
 
 ## Фаза 7: Handler Layer (HTTP API)
 
 ### 7.1. Health Handler (internal/handler/health.go)
-- [ ] Создать структуру HealthHandler
-- [ ] Реализовать метод Check для GET /health (вернуть 200 OK)
-- [ ] Добавить проверку подключения к БД (опционально)
+- [x] Создать структуру HealthHandler
+- [x] Реализовать метод Check для GET /health (вернуть 200 OK)
 
 ### 7.2. Team Handlers (internal/handler/team.go)
-- [ ] Создать структуру TeamHandler с зависимостью от TeamService
-- [ ] Реализовать метод CreateTeam для POST /team/add
-  - [ ] Парсинг JSON из request body
-  - [ ] Валидация входных данных
-  - [ ] Вызов service.CreateTeam
-  - [ ] Обработка ошибок (400 если TEAM_EXISTS, 500 для остальных)
-  - [ ] Формирование response (201 Created)
-- [ ] Реализовать метод GetTeam для GET /team/get
-  - [ ] Получение team_name из query параметра
-  - [ ] Вызов service.GetTeam
-  - [ ] Обработка ошибок (404 если NOT_FOUND)
-  - [ ] Формирование response (200 OK)
+- [x] Создать структуру TeamHandler с зависимостью от TeamService
+- [x] Реализовать метод CreateTeam для POST /team/add
+  - [x] Парсинг JSON из request body
+  - [x] Валидация входных данных
+  - [x] Вызов service.CreateTeam
+  - [x] Обработка ошибок через MapErrorToHTTPStatus
+  - [x] Формирование response (201 Created)
+- [x] Реализовать метод GetTeam для GET /team/get
+  - [x] Получение team_name из query параметра
+  - [x] Вызов service.GetTeam
+  - [x] Обработка ошибок (404 если NOT_FOUND)
+  - [x] Формирование response (200 OK)
 
 ### 7.3. User Handlers (internal/handler/user.go)
-- [ ] Создать структуру UserHandler с зависимостью от UserService
-- [ ] Реализовать метод SetIsActive для POST /users/setIsActive
-  - [ ] Парсинг JSON из request body
-  - [ ] Валидация входных данных
-  - [ ] Вызов service.SetUserActive
-  - [ ] Обработка ошибок (404 если NOT_FOUND)
-  - [ ] Формирование response (200 OK)
-- [ ] Реализовать метод GetUserReviews для GET /users/getReview
-  - [ ] Получение user_id из query параметра
-  - [ ] Вызов service.GetUserReviews
-  - [ ] Обработка ошибок (404 если NOT_FOUND)
-  - [ ] Формирование response (200 OK)
+- [x] Создать структуру UserHandler с зависимостью от UserService
+- [x] Реализовать метод SetIsActive для POST /users/setIsActive
+  - [x] Парсинг JSON из request body
+  - [x] Валидация входных данных
+  - [x] Вызов service.SetUserActive
+  - [x] Обработка ошибок (404 если NOT_FOUND)
+  - [x] Формирование response (200 OK)
+- [x] Реализовать метод GetUserReviews для GET /users/getReview
+  - [x] Получение user_id из query параметра
+  - [x] Вызов service.GetUserReviews
+  - [x] Обработка ошибок (404 если NOT_FOUND)
+  - [x] Формирование response (200 OK)
 
 ### 7.4. PR Handlers (internal/handler/pr.go)
-- [ ] Создать структуру PRHandler с зависимостью от PRService
-- [ ] Реализовать метод CreatePR для POST /pullRequest/create
-  - [ ] Парсинг JSON из request body
-  - [ ] Валидация входных данных
-  - [ ] Вызов service.CreatePR
-  - [ ] Обработка ошибок (404 если NOT_FOUND, 409 если PR_EXISTS)
-  - [ ] Формирование response (201 Created)
-- [ ] Реализовать метод MergePR для POST /pullRequest/merge
-  - [ ] Парсинг JSON из request body
-  - [ ] Валидация входных данных
-  - [ ] Вызов service.MergePR
-  - [ ] Обработка ошибок (404 если NOT_FOUND)
-  - [ ] Формирование response (200 OK, идемпотентно)
-- [ ] Реализовать метод ReassignReviewer для POST /pullRequest/reassign
-  - [ ] Парсинг JSON из request body
-  - [ ] Валидация входных данных
-  - [ ] Вызов service.ReassignReviewer
-  - [ ] Обработка ошибок (404 если NOT_FOUND, 409 для PR_MERGED/NOT_ASSIGNED/NO_CANDIDATE)
-  - [ ] Формирование response (200 OK)
+- [x] Создать структуру PRHandler с зависимостью от PRService
+- [x] Реализовать метод CreatePR для POST /pullRequest/create
+  - [x] Парсинг JSON из request body
+  - [x] Валидация входных данных
+  - [x] Вызов service.CreatePR
+  - [x] Обработка ошибок (404 если NOT_FOUND, 409 если PR_EXISTS)
+  - [x] Формирование response (201 Created)
+- [x] Реализовать метод MergePR для POST /pullRequest/merge
+  - [x] Парсинг JSON из request body
+  - [x] Валидация входных данных
+  - [x] Вызов service.MergePR
+  - [x] Обработка ошибок (404 если NOT_FOUND)
+  - [x] Формирование response (200 OK, идемпотентно)
+- [x] Реализовать метод ReassignReviewer для POST /pullRequest/reassign
+  - [x] Парсинг JSON из request body
+  - [x] Валидация входных данных
+  - [x] Вызов service.ReassignReviewer
+  - [x] Обработка ошибок (404 если NOT_FOUND, 409 для PR_MERGED/NOT_ASSIGNED/NO_CANDIDATE)
+  - [x] Формирование response (200 OK)
 
 ---
 
 ## Фаза 8: Middleware
 
 ### 8.1. Logger Middleware (internal/middleware/logger.go)
-- [ ] Создать middleware для логирования HTTP запросов
-- [ ] Логировать: метод, путь, status code, время выполнения
-- [ ] Использовать настроенный logger из pkg/logger
+- [x] Создать middleware для логирования HTTP запросов
+- [x] Логировать: метод, путь, status code, время выполнения
+- [x] Использовать настроенный logger из pkg/logger
 
 ### 8.2. Recovery Middleware (internal/middleware/recovery.go)
-- [ ] Создать middleware для восстановления от panic
-- [ ] Логировать stack trace при panic
-- [ ] Возвращать 500 Internal Server Error при panic
+- [x] Создать middleware для восстановления от panic
+- [x] Логировать stack trace при panic
+- [x] Возвращать 500 Internal Server Error при panic
 
 ---
 
 ## Фаза 9: Application Initialization
 
 ### 9.1. Router Setup (internal/app/app.go)
-- [ ] Создать функцию NewRouter с настройкой gorilla/mux
-- [ ] Зарегистрировать health endpoint (GET /health)
-- [ ] Зарегистрировать team endpoints (POST /team/add, GET /team/get)
-- [ ] Зарегистрировать user endpoints (POST /users/setIsActive, GET /users/getReview)
-- [ ] Зарегистрировать PR endpoints (POST /pullRequest/create, POST /pullRequest/merge, POST /pullRequest/reassign)
-- [ ] Подключить middleware (logger, recovery)
+- [x] Создать функцию NewRouter с настройкой gorilla/mux
+- [x] Зарегистрировать health endpoint (GET /health)
+- [x] Зарегистрировать team endpoints (POST /team/add, GET /team/get)
+- [x] Зарегистрировать user endpoints (POST /users/setIsActive, GET /users/getReview)
+- [x] Зарегистрировать PR endpoints (POST /pullRequest/create, POST /pullRequest/merge, POST /pullRequest/reassign)
+- [x] Подключить middleware (Recovery -> Logger)
 
 ### 9.2. Dependency Injection (internal/app/app.go)
-- [ ] Создать функцию NewApp для инициализации всех зависимостей
-- [ ] Инициализировать logger
-- [ ] Инициализировать database connection
-- [ ] Инициализировать repositories
-- [ ] Инициализировать services
-- [ ] Инициализировать handlers
-- [ ] Инициализировать router
+- [x] Создать функцию NewApp для инициализации всех зависимостей
+- [x] Инициализировать logger
+- [x] Инициализировать database connection (с retry логикой)
+- [x] Инициализировать transaction manager
+- [x] Инициализировать repositories (Team, User, PR)
+- [x] Инициализировать services (Team, User, PR)
+- [x] Инициализировать handlers (Health, Team, User, PR)
+- [x] Инициализировать router
 
 ### 9.3. App Run (internal/app/app.go)
-- [ ] Создать метод Run для запуска HTTP сервера
-- [ ] Добавить graceful shutdown (обработка SIGINT, SIGTERM)
-- [ ] Добавить таймауты для сервера (read, write, idle timeout)
+- [x] Создать метод Run для запуска HTTP сервера
+- [x] Добавить graceful shutdown (обработка SIGINT, SIGTERM)
+- [x] Добавить таймауты для сервера (read: 15s, write: 15s, idle: 60s)
 
 ---
 
 ## Фаза 10: Main Entry Point
 
 ### 10.1. Main (cmd/api/main.go)
-- [ ] Загрузить конфигурацию
-- [ ] Инициализировать приложение через app.NewApp
-- [ ] Запустить сервер через app.Run
-- [ ] Добавить обработку ошибок и логирование
+- [x] Загрузить конфигурацию
+- [x] Инициализировать приложение через app.NewApp
+- [x] Запустить сервер через app.Run
+- [x] Добавить обработку ошибок и логирование
 
 ---
 
