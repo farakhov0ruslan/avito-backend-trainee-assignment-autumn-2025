@@ -462,20 +462,11 @@ make help                   # Список команд
 │       ├── pr_test.go
 │       ├── team_test.go
 │       └── user_test.go
-├── claude/                         # Проектная документация
-│   ├── openapi.yml                 # OpenAPI-описание
-│   ├── project-description.md
-│   └── technical-specification.md
-├── .env.example                    # Пример env-конфигурации
-├── .env.e2e                        # Конфигурация для E2E
 ├── .gitignore
-├── .golangci.yml                   # Настройки линтера
 ├── docker-compose.yml              # Production compose
 ├── docker-compose.e2e.yml          # Compose для E2E
 ├── Dockerfile                      # Multi-stage Dockerfile
 ├── entrypoint.sh                   # Entrypoint-скрипт
-├── go.mod
-├── go.sum
 ├── Makefile
 ├── README.md
 └── TODO.md                         # План дальнейшей разработки
