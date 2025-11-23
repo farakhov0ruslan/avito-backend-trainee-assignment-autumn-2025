@@ -141,20 +141,20 @@
 ## Фаза 5: Repository Layer
 
 ### 5.1. Repository Interfaces (internal/repository/interfaces.go)
-- [ ] Создать интерфейс TeamRepository с методами Create, GetByName, Exists
-- [ ] Создать интерфейс UserRepository с методами Create, Update, GetByID, GetByTeamName, SetActive
-- [ ] Создать интерфейс PRRepository с методами Create, GetByID, Update, Merge, GetReviewersByPRID, AddReviewer, RemoveReviewer, GetPRsByReviewerID
+- [x] Создать интерфейс TeamRepository с методами Create, GetByName, Exists
+- [x] Создать интерфейс UserRepository с методами Create, Update, GetByID, GetByTeamName, SetActive
+- [x] Создать интерфейс PRRepository с методами Create, GetByID, Update, Merge, GetReviewersByPRID, AddReviewer, RemoveReviewer, GetPRsByReviewerID
 
 ### 5.2. Transaction Manager (internal/repository/transaction.go)
-- [ ] Создать интерфейс TransactionManager с методом WithTransaction
-- [ ] Реализовать PostgreSQL transaction manager
-- [ ] Добавить методы Begin, Commit, Rollback
+- [x] Создать интерфейс TransactionManager с методом WithTransaction
+- [x] Реализовать PgxTransactionManager с поддержкой транзакций
+- [x] Добавить Executor интерфейс и функцию GetTx для работы с транзакциями
 
 ### 5.3. Team Repository (internal/repository/postgres/team.go)
-- [ ] Реализовать метод Create для создания команды
-- [ ] Реализовать метод GetByName для получения команды с участниками
-- [ ] Реализовать метод Exists для проверки существования команды
-- [ ] Добавить обработку ошибок и логирование
+- [x] Реализовать метод Create для создания команды
+- [x] Реализовать метод GetByName для получения команды с участниками
+- [x] Реализовать метод Exists для проверки существования команды
+- [x] Добавить обработку ошибок (unique violation) и логирование
 
 ### 5.4. User Repository (internal/repository/postgres/user.go)
 - [ ] Реализовать метод Create для создания пользователя
@@ -208,7 +208,7 @@
 ### 6.5. PR Service - Часть 2: Merge (internal/service/pr.go)
 - [ ] Реализовать метод MergePR
 - [ ] Проверить существование PR
-- [ ] Проверить что PR еще не MERGED (если уже MERGED - вернуть текущее состояние, идемпотентность)
+  - [ ] Проверить что PR еще не MERGED (если уже MERGED - вернуть текущее состояние, идемпотентность)
 - [ ] Изменить статус на MERGED и установить merged_at
 - [ ] Добавить обработку ошибок
 

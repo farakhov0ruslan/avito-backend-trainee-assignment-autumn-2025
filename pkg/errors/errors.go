@@ -30,6 +30,7 @@ var (
 func MapErrorToHTTPStatus(err error) int {
 	switch {
 	case errors.Is(err, ErrTeamExists),
+		errors.Is(err, ErrUserAlreadyExists),
 		errors.Is(err, ErrPRExists),
 		errors.Is(err, ErrPRMerged),
 		errors.Is(err, ErrReviewerNotAssigned),

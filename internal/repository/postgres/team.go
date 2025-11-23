@@ -2,10 +2,8 @@ package postgres
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
-	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"avito-backend-trainee-assignment-autumn-2025/internal/domain/models"
@@ -113,14 +111,4 @@ func (r *TeamRepository) Exists(ctx context.Context, name string) (bool, error) 
 	}
 
 	return exists, nil
-}
-
-// isPgUniqueViolation checks if error is a PostgreSQL unique violation
-func isPgUniqueViolation(err error) bool {
-	var pgErr *pgconn.PgError
-	if errors.As(err, &pgErr) {
-		// 23505 is the PostgreSQL error code for unique_violation
-		return pgErr.Code == "23505"
-	}
-	return false
 }
