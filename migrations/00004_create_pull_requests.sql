@@ -1,5 +1,4 @@
 -- +goose Up
--- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS pull_requests (
     id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -14,9 +13,6 @@ CREATE TABLE IF NOT EXISTS pull_requests (
 CREATE INDEX idx_pr_author_id ON pull_requests(author_id);
 CREATE INDEX idx_pr_status ON pull_requests(status);
 CREATE INDEX idx_pr_created_at ON pull_requests(created_at);
--- +goose StatementEnd
 
 -- +goose Down
--- +goose StatementBegin
 DROP TABLE IF EXISTS pull_requests CASCADE;
--- +goose StatementEnd

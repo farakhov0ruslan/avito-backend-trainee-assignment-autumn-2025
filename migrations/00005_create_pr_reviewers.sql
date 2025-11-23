@@ -1,5 +1,4 @@
 -- +goose Up
--- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS pr_reviewers (
     pr_id VARCHAR(255) NOT NULL,
     reviewer_id VARCHAR(255) NOT NULL,
@@ -11,9 +10,6 @@ CREATE TABLE IF NOT EXISTS pr_reviewers (
 
 CREATE INDEX idx_pr_reviewers_reviewer_id ON pr_reviewers(reviewer_id);
 CREATE INDEX idx_pr_reviewers_assigned_at ON pr_reviewers(assigned_at);
--- +goose StatementEnd
 
 -- +goose Down
--- +goose StatementBegin
 DROP TABLE IF EXISTS pr_reviewers CASCADE;
--- +goose StatementEnd
