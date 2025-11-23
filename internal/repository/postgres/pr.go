@@ -153,7 +153,7 @@ func (r *PRRepository) Merge(ctx context.Context, prID string) (*models.PullRequ
 	_, err = executor.Exec(ctx, query, prID, models.PRStatusMerged, mergedAt)
 	if err != nil {
 		logger.Error("Failed to merge PR %s: %v", prID, err)
-		return fmt.Errorf("failed to merge PR: %w", err)
+		return nil, fmt.Errorf("failed to merge PR: %w", err)
 	}
 
 	logger.Info("Merged PR: %s", prID)
