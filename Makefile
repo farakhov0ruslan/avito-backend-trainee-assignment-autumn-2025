@@ -74,18 +74,6 @@ run:
 	@echo "Running application..."
 	@go run cmd/api/main.go
 
-# Run all tests
-test:
-	@echo "Running tests..."
-	@go test -v ./...
-
-# Run tests with coverage
-test-coverage:
-	@echo "Running tests with coverage..."
-	@go test -v -coverprofile=coverage.out ./...
-	@go tool cover -html=coverage.out -o coverage.html
-	@echo "Coverage report generated: coverage.html"
-
 # Run linter
 lint:
 	@echo "Running linter..."
