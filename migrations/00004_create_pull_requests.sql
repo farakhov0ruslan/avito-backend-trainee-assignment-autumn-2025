@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS pull_requests (
     author_id VARCHAR(255) NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'OPEN',
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
     merged_at TIMESTAMP,
     CONSTRAINT fk_pr_author FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT chk_pr_status CHECK (status IN ('OPEN', 'MERGED'))
